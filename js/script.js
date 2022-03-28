@@ -6,7 +6,7 @@ let list = document.querySelector('#list'); //pegando o elemento pelo id
 
 let card = document.querySelector('.card');
 
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks'))  || [];
 
 function renderTasks(){
     list.innerHTML = '';
@@ -45,6 +45,8 @@ button.onclick = function(){
         renderTasks();
         input.value = ''
         removeSpans();
+
+        saveDateToStorage();
     }else {
         removeSpans();
         let card = document.querySelector('.card');
@@ -68,6 +70,14 @@ function removeTasks(tas){
     tasks.splice(tasks.indexOf(tas.textContent), 1);      
 
     renderTasks();
+
+    //Salvar os dados no Storage
+    saveDateToStorage();
+}
+
+function saveDateToStorage(){
+    // Todo navegador web possui esta capacidade. 
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 
