@@ -17,6 +17,11 @@ function renderTasks(){
        //Adicionar classes do item da lista
        itemList.setAttribute('class', 'list-group-item list-group-item-action');
 
+       //Adicionar evento de clique no item da lista
+       itemList.onclick = function(){
+            removeTasks(this);
+       }
+
        //criar um texto
        let itemText = document.createTextNode(task);
 
@@ -39,9 +44,9 @@ button.onclick = function(){
         tasks.push(newTask);
         renderTasks();
         input.value = ''
-        removerSpans();
+        removeSpans();
     }else {
-        removerSpans();
+        removeSpans();
         let card = document.querySelector('.card');
         let span = document.createElement('span');
         span.setAttribute('class', 'alert alert-warning');
@@ -51,10 +56,18 @@ button.onclick = function(){
     }
 }
 
-function removerSpans(){
+function removeSpans(){
     let spans = document.querySelectorAll('span');
     
     for(let i = 0; i < spans.length; i++){
         card.removeChild(spans[i]);
     }
 }
+
+function removeTasks(tas){
+    tasks.splice(tasks.indexOf(tas.textContent), 1);      
+
+    renderTasks();
+}
+
+
